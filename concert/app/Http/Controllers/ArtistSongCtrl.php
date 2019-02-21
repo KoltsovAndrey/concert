@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\ArtistSong;
+
 class ArtistSongCtrl extends Controller
 {
     public function create(Request $request)
@@ -18,7 +20,7 @@ class ArtistSongCtrl extends Controller
             'song_id' => $request->song_id,
         ]);
 
-        return redirect();
+        return redirect('artistsong');
     }
 
     public function update(Request $request)
@@ -28,7 +30,7 @@ class ArtistSongCtrl extends Controller
         $artistSong->song_id = $request->song_id;
         $artistSong->save();
         
-        return redirect();
+        return redirect('artistsong');
     }
 
     public function delete(Request $request)
@@ -36,7 +38,7 @@ class ArtistSongCtrl extends Controller
         $artistSong = ArtistSong::forID($request->artist_id, $request->song_id);
         $artistSong->delete();
 
-        return redirect();
+        return redirect('artistsong');
     }
 
     public function list()

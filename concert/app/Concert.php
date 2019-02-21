@@ -25,13 +25,13 @@ class Concert extends Model
         return $this->hasMany('App\Choise');
     }
 
-    public function list()
+    public static function list()
     {
         return Concert::select('id', 'name', 'cost', 'count', 'place_id', 'artist_id')
                     ->get();
     }
 
-    public function forID($id)
+    public static function forID($id)
     {
         return Concert::select('id', 'name', 'cost', 'count', 'place_id', 'artist_id')
                     ->where('id', $id)

@@ -20,13 +20,13 @@ class Place extends Model
         return $this->hasMany('App\Concert');
     }
 
-    public function list()
+    public static function list()
     {
         return Place::select('id', 'name', 'city_id')
                     ->get();
     }
 
-    public function forID($id)
+    public static function forID($id)
     {
         return Place::select('id', 'name', 'city_id')
                     ->where('id', $id)

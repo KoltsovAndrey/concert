@@ -24,7 +24,7 @@ class ChoiseCtrl extends Controller
             'date' => $request->date,
         ]);
 
-        return redirect();
+        return redirect('choise');
     }
 
     public function update(Request $request)
@@ -36,7 +36,7 @@ class ChoiseCtrl extends Controller
         $choise->date = $request->date;
         $choise->save();
         
-        return redirect();
+        return redirect('choise');
     }
 
     public function delete(Request $request)
@@ -44,7 +44,7 @@ class ChoiseCtrl extends Controller
         $choise = Choise::forID($request->id);
         $choise->delete();
 
-        return redirect();
+        return redirect('choise');
     }
 
     public function list()

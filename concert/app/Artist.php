@@ -20,13 +20,13 @@ class Artist extends Model
         return $this->hasMany('App\ArtistSong');
     }
 
-    public function list()
+    public static function list()
     {
         return Artist::select('id', 'name')
                     ->get();
     }
 
-    public function forID($id)
+    public static function forID($id)
     {
         return Artist::select('id', 'name')
                     ->where('id', $id)

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ArtistSong extends Model
 {
+    protected $table = 'artistSongs';
     protected $fillable = [
         'artist_id', 'song_id',
     ];
@@ -20,17 +21,19 @@ class ArtistSong extends Model
         return $this->belongsTo('App\Artist');
     }
 
-    public function list()
+    public static function list()
     {
         return ArtistSong::select('artist_id', 'song_id')
                     ->get();
     }
 
-    public function forID($artist_id, $song_id)
+    public static function forID($artist_id, $song_id)
     {
         return ArtistSong::select('artist_id', 'song_id')
-                    ->where('artist_id', $artist_id)
-                    ->where('song_id', $song_id)
+                    ->where([  
+                        ['artist_id', $artist_id],
+                        ['song_id', $song_id], 
+                        ])
                     ->first();
     }
 }

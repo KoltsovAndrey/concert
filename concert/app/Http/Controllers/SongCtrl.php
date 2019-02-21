@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Song;
-use GuzzleHttp\Psr7\Request;
 
 class SongCtrl extends Controller
 {
@@ -15,11 +14,11 @@ class SongCtrl extends Controller
             'name' => 'required|max:255',
         ]);
 
-        $song = Song::create([
+        Song::create([
             'name' => $request->name,
         ]);
 
-        return redirect();
+        return redirect('song');
     }
 
     public function update(Request $request)
@@ -28,7 +27,7 @@ class SongCtrl extends Controller
         $song->name = $request->name;
         $song->save();
         
-        return redirect();
+        return redirect('song');
     }
 
     public function delete(Request $request)
@@ -36,7 +35,7 @@ class SongCtrl extends Controller
         $song = Song::forID($request->id);
         $song->delete();
 
-        return redirect();
+        return redirect('song');
     }
 
     public function list()

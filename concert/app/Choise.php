@@ -25,13 +25,13 @@ class Choise extends Model
         return $this->belongsTo('App\Concert');
     }
 
-    public function list()
+    public static function list()
     {
-        return Choises::select('id', 'user_id', 'concert_id', 'song_id', 'date')
+        return Choise::select('id', 'user_id', 'concert_id', 'song_id', 'date')
                     ->get();
     }
 
-    public function forID($id)
+    public static function forID($id)
     {
         return Choise::select('id', 'user_id', 'concert_id', 'song_id', 'date')
                     ->where('id', $id)

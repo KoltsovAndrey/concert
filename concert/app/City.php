@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
+    protected $table = 'citys';
     protected $fillable = [
         'name',
     ];
@@ -16,13 +17,13 @@ class City extends Model
     }
 
     //sql
-    public function list()
+    public static function list()
     {
         return City::select('id', 'name')
                     ->get();
     }
 
-    public function forID($id)
+    public static function forID($id)
     {
         return City::select('id', 'name')
                     ->where('id', $id)

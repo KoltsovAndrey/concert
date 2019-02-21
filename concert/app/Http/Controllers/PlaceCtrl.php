@@ -15,12 +15,12 @@ class PlaceCtrl extends Controller
             'city_id' => 'required',
         ]);
 
-        $place = Place::create([
+        Place::create([
             'name' => $request->name,
             'city_id' => $request->city_id,
         ]);
 
-        return redirect();
+        return redirect('place');
     }
 
     public function update(Request $request)
@@ -30,7 +30,7 @@ class PlaceCtrl extends Controller
         $place->city_id = $request->city_id;
         $place->save();
         
-        return redirect();
+        return redirect('place');
     }
 
     public function delete(Request $request)
@@ -38,7 +38,7 @@ class PlaceCtrl extends Controller
         $place = Place::forID($request->id);
         $place->delete();
 
-        return redirect();
+        return redirect('place');
     }
 
     public function list()
