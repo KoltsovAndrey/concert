@@ -23,13 +23,13 @@ class ArtistSong extends Model
 
     public static function list()
     {
-        return ArtistSong::select('artist_id', 'song_id')
+        return ArtistSong::select('id', 'artist_id', 'song_id')
                     ->get();
     }
 
     public static function forID($artist_id, $song_id)
     {
-        return ArtistSong::select('artist_id', 'song_id')
+        return ArtistSong::select('id', 'artist_id', 'song_id')
                     ->where([  
                         ['artist_id', $artist_id],
                         ['song_id', $song_id], 

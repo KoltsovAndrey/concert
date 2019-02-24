@@ -81,7 +81,6 @@ Route::group(['prefix' => 'artistsong'], function() {
     Route::get('/edit/{artist_id}/{song_id}', 'ArtistSongCtrl@forID');
     
     Route::post('/create', 'ArtistSongCtrl@create');
-    Route::post('/update', 'ArtistSongCtrl@update');
     Route::post('/delete', 'ArtistSongCtrl@delete');
 });
 

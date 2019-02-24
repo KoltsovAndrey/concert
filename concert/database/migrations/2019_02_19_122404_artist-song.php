@@ -14,11 +14,11 @@ class ArtistSong extends Migration
     public function up()
     {
         Schema::create('artistSongs', function(Blueprint $table){
+            $table->increments('id');
             $table->integer('artist_id')->unsigned();
             $table->foreign('artist_id')->references('id')->on('artists');
             $table->integer('song_id')->unsigned();
             $table->foreign('song_id')->references('id')->on('songs');
-            $table->primary(array('artist_id', 'song_id'));
         });
     }
 

@@ -23,16 +23,6 @@ class ArtistSongCtrl extends Controller
         return redirect('artistsong');
     }
 
-    public function update(Request $request)
-    {
-        $artistSong = ArtistSong::forID($request->artist_id, $request->song_id);
-        $artistSong->artist_id = $request->artist_id;
-        $artistSong->song_id = $request->song_id;
-        $artistSong->save();
-        
-        return redirect('artistsong');
-    }
-
     public function delete(Request $request)
     {
         $artistSong = ArtistSong::forID($request->artist_id, $request->song_id);

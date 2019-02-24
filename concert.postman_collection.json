@@ -103,7 +103,7 @@
 					"raw": "{\n\t\"id\" : \"1\",\n    \"name\" : \"123\"\n}"
 				},
 				"url": {
-					"raw": "127.0.0.1:8000/song/update",
+					"raw": "127.0.0.1:8000/song/create",
 					"host": [
 						"127",
 						"0",
@@ -113,7 +113,7 @@
 					"port": "8000",
 					"path": [
 						"song",
-						"update"
+						"create"
 					]
 				}
 			},
@@ -993,7 +993,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"artist_id\" : \"1\",\n    \"song_id\" : \"1\"\n}"
+					"raw": "{\n    \"artist_id\" : \"1\",\n    \"song_id\" : \"2\"\n}"
 				},
 				"url": {
 					"raw": "127.0.0.1:8000/artistsong/edit/1/2",
@@ -1045,6 +1045,42 @@
 					"path": [
 						"artistsong",
 						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "127.0.0.1:8000/artistsong/delete",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"artist_id\" : \"1\",\n    \"song_id\" : \"2\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/artistsong/delete",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"artistsong",
+						"delete"
 					]
 				}
 			},
