@@ -20,7 +20,7 @@ class ArtistSongCtrl extends Controller
             'song_id' => $request->song_id,
         ]);
 
-        return redirect('artistsong');
+        return $artistSong;
     }
 
     public function delete(Request $request)
@@ -28,7 +28,7 @@ class ArtistSongCtrl extends Controller
         $artistSong = ArtistSong::forID($request->artist_id, $request->song_id);
         $artistSong->delete();
 
-        return redirect('artistsong');
+        return ['status' => true];
     }
 
     public function list()

@@ -24,28 +24,28 @@ class ChoiseCtrl extends Controller
             'date' => $request->date,
         ]);
 
-        return redirect('choise');
+        return $choise;
     }
 
-    public function update(Request $request)
-    {
-        $choise = Choise::forID($request->id);
-        $choise->user_id = $request->user_id;
-        $choise->concert_id = $request->concert_id;
-        $choise->song_id = $request->song_id;
-        $choise->date = $request->date;
-        $choise->save();
+    // public function update(Request $request)
+    // {
+    //     $choise = Choise::forID($request->id);
+    //     $choise->user_id = $request->user_id;
+    //     $choise->concert_id = $request->concert_id;
+    //     $choise->song_id = $request->song_id;
+    //     $choise->date = $request->date;
+    //     $choise->save();
         
-        return redirect('choise');
-    }
+    //     return $choise;
+    // }
 
-    public function delete(Request $request)
-    {
-        $choise = Choise::forID($request->id);
-        $choise->delete();
+    // public function delete(Request $request)
+    // {
+    //     $choise = Choise::forID($request->id);
+    //     $choise->delete();
 
-        return redirect('choise');
-    }
+    //     return ['status' => true ]; 
+    // }
 
     public function list()
     {

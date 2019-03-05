@@ -14,11 +14,11 @@ class SongCtrl extends Controller
             'name' => 'required|max:255',
         ]);
 
-        Song::create([
+        $song = Song::create([
             'name' => $request->name,
         ]);
 
-        return redirect('song');
+        return $song;
     }
 
     public function update(Request $request)
@@ -27,7 +27,7 @@ class SongCtrl extends Controller
         $song->name = $request->name;
         $song->save();
         
-        return redirect('song');
+        return $song;
     }
 
     public function delete(Request $request)
@@ -35,7 +35,7 @@ class SongCtrl extends Controller
         $song = Song::forID($request->id);
         $song->delete();
 
-        return redirect('song');
+        return ['status' => true];
     }
 
     public function list()

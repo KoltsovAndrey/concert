@@ -18,7 +18,7 @@ class ArtistCtrl extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect('artist');
+        return $artist;
     }
 
     public function update(Request $request)
@@ -27,7 +27,7 @@ class ArtistCtrl extends Controller
         $artist->name = $request->name;
         $artist->save();
         
-        return redirect('artist');
+        return $artist;
     }
 
     public function delete(Request $request)
@@ -35,7 +35,7 @@ class ArtistCtrl extends Controller
         $artist = Artist::forID($request->id);
         $artist->delete();
 
-        return redirect('artist');
+        return ['status' => true];
     }
 
     public function list()

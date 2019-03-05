@@ -26,7 +26,7 @@ class ConcertCtrl extends Controller
             'place_id' => $request->place_id,
         ]);
 
-        return redirect('concert');
+        return $concert;
     }
 
     public function update(Request $request)
@@ -39,7 +39,7 @@ class ConcertCtrl extends Controller
         $concert->artist_id = $request->artist_id;
         $concert->save();
         
-        return redirect('concert');
+        return $concert;
     }
 
     public function delete(Request $request)
@@ -47,7 +47,7 @@ class ConcertCtrl extends Controller
         $concert = Concert::forID($request->id);
         $concert->delete();
 
-        return redirect('concert');
+        return [ 'status' => true ];
     }
 
     public function list()

@@ -91,6 +91,6 @@ Route::group(['prefix' => 'choise'], function() {
     Route::get('/edit/{id}', 'ChoiseCtrl@forID');
     
     Route::post('/create', 'ChoiseCtrl@create');
-    Route::post('/update', 'ChoiseCtrl@update');
-    Route::post('/delete', 'ChoiseCtrl@delete');
+    // Route::post('/update', 'ChoiseCtrl@update');
+    // Route::post('/delete', 'ChoiseCtrl@delete');
 });

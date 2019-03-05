@@ -14,11 +14,11 @@ class CityCtrl extends Controller
             'name' => 'required|max:255',
         ]);
 
-        City::create([
+        $city = City::create([
             'name' => $request->name,
         ]);
 
-        return redirect('city');
+        return $city;
     }
 
     public function update(Request $request)
@@ -27,7 +27,7 @@ class CityCtrl extends Controller
         $city->name = $request->name;
         $city->save();
         
-        return redirect('city');
+        return $city;
     }
 
     public function delete(Request $request)
@@ -35,7 +35,7 @@ class CityCtrl extends Controller
         $city = city::forID($request->id);
         $city->delete();
 
-        return redirect('city');
+        return [ 'status' => true ];
     }
 
     public function list()
