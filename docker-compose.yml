@@ -50,7 +50,9 @@ services:
 
   front_concert:
       container_name: front_concert
-      image: node:8.9.4
+      build: 
+        context: ./
+        dockerfile: front_concert.dockerfile
       restart: always
       working_dir: /var/www/front_concert/
       command: npm run dev 
