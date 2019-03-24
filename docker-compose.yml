@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+
+  nginx: 
+    container_name: concert_nginx
+    privileged: true
+    image: nginx:1.15.2-alpine
+    restart: always
+    volumes:
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf # nginx config
+      - ./:/var/www/laravel/:cached
+    ports:
+      - 81:80
+    depends_on:
+      - laravel
+      - front_concert
+
+  laravel:
+    container_name: concert_laravel
+    image: westside072/laravel-php-7.2:latest
+    restart: always
+    working_dir: /var/www/laravel/
+    volumes:
+      - ./concert:/var/www/laravel/:cached
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    container_name: concert_mysqldb
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=concert
+      - MYSQL_USER=concert
+      - MYSQL_PASSWORD=123456
+    volumes:
+      - ./mysql-data:/var/lib/mysql:cached
+      
+  adminer:
+    container_name: concert_adminer
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8002:8080
+    depends_on:
+      - mysqldb
+
+  front_concert:
+      container_name: front_concert
+      image: node:8.9.4
+      restart: always
+      working_dir: /var/www/front_concert/
+      command: npm run dev 
+      volumes:
+        - ./front-concert/:/var/www/front_concert/
