@@ -18,6 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/login', 'LoginController@login')->name('login');
+Route::get('/signup', 'RegisterController@signup')->name('signup');
 
 Route::group(['prefix' => 'song'], function() {
     Route::get('/', 'SongCtrl@list')->name('song');
