@@ -1,0 +1,144 @@
+  version: '3'
+
+  services:
+
+  # ENV
+  # # LARAVEL_PATH_HOST : LARAVEL_PATH_CONTAINER
+  # # NODEJS_PATH_HOST_1 : NODEJS_PATH_CONTAINER_1
+  # # NODEJS_PATH_HOST_2 : NODEJS_PATH_CONTAINER_2
+  # # REDIS_PATH_HOST
+  # # MYSQL_PATH_HOST
+  # # SUPERVISORD_PATH_HOST
+  # # LOG_PATH_HOST
+
+    # s3: 
+    #   container_name: zero_s3
+    #   image: scality/s3server
+    #   restart: always
+    #   ports:
+    #     - 8000:8000
+    #   volumes: 
+    #     - ./s3/data:/usr/src/app/localData
+    #     - ./s3/metadata:/usr/src/app/localMetadata
+    #     - ./s3/credentials:/root/.aws/credentials
+    #     - ./s3/config.json:/usr/src/app/config.json
+    #     - ./s3/locationConfig.json:/usr/src/app/locationConfig.json
+    #     - ./s3/authdata.json:/usr/src/app/conf/authdata.json
+    #   environment:
+    #     - S3BACKEND=file
+    #     - S3DATA=multiple
+
+    nginx:
+      container_name: zero_nginx
+      privileged: true
+      image: nginx:1.15.2-alpine
+      restart: always
+      volumes:
+        - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf # nginx config
+        - ./nginx/certs/letsencrypt:/etc/letsencrypt # letsencrypt
+        - ${LARAVEL_PATH_HOST}:${LARAVEL_PATH_CONTAINER} # laravel
+        # - ./nginx/var/www:/var/www
+      ports:
+        - 80:80
+        - 443:443
+      depends_on:
+        - laravel
+        - node_front
+        - node_admin
+
+    laravel:
+      container_name: zero_laravel
+      build:
+        context: ./
+        dockerfile: zero_laravel.dockerfile
+      restart: always
+      working_dir: ${LARAVEL_PATH_CONTAINER}
+      volumes:
+        - ${LARAVEL_PATH_HOST}:${LARAVEL_PATH_CONTAINER}
+      depends_on:
+        - mysqldb
+        - redisdb
+
+    redisdb:
+      container_name: zero_redisdb
+      image: redis
+      restart: always
+      volumes:
+        - ${REDIS_PATH_HOST}:/data
+
+    mysqldb:
+      container_name: zero_mysqldb
+      image: mysql:5.7
+      restart: always
+      environment:
+        - MYSQL_ROOT_PASSWORD=RsUO5fv1BeIK
+        - MYSQL_DATABASE=zero
+        - MYSQL_USER=zero
+        - MYSQL_PASSWORD=RsUO5fv1BeIK
+      volumes:
+        - ${MYSQL_PATH_HOST}:/var/lib/mysql
+
+    adminer:
+      container_name: zero_adminer
+      image: adminer:latest
+      restart: always
+      ports:
+        - 8002:8080
+      depends_on:
+        - mysqldb
+        
+    supervisord:
+      container_name: zero_supervisord
+      build:
+        context: ./
+        dockerfile: zero_supervisord.dockerfile
+      restart: always
+      working_dir: ${LARAVEL_PATH_CONTAINER}
+      volumes:
+        - ${LARAVEL_PATH_HOST}:${LARAVEL_PATH_CONTAINER}
+        - ${SUPERVISORD_PATH_HOST}:/home/supervisord
+        - ${LOG_PATH_HOST}:/var/log/
+      depends_on:
+        - mysqldb
+        - redisdb
+
+    laravel_cron:
+      container_name: zero_laravel_cron
+      build:
+        context: ./
+        dockerfile: zero_laravel_cron.dockerfile
+      restart: always
+      working_dir: ${LARAVEL_PATH_CONTAINER}
+      volumes:
+        - ${LARAVEL_PATH_HOST}:${LARAVEL_PATH_CONTAINER}
+      depends_on:
+        - mysqldb
+        - redisdb
+
+    node_admin:
+      container_name: zero_node_admin
+      image: node:8.9.4
+      restart: always
+      working_dir: ${NODEJS_PATH_CONTAINER_1}
+      command: npm run dev
+      volumes:
+        - ${NODEJS_PATH_HOST_1}:${NODEJS_PATH_CONTAINER_1}
+
+    node_front:
+      container_name: zero_node_front
+      build: 
+        context: ./
+        dockerfile: zero_node_front.dockerfile
+      restart: always
+      working_dir: ${NODEJS_PATH_CONTAINER_2}
+      command: npm run dev 
+      volumes:
+        - ${NODEJS_PATH_HOST_2}:${NODEJS_PATH_CONTAINER_2}
+
+    composer:
+      container_name: zero_composer
+      image: westside072/laravel-php-7.2:latest
+      volumes:
+        - ${LARAVEL_PATH_HOST}:${LARAVEL_PATH_CONTAINER}
+      working_dir: ${LARAVEL_PATH_CONTAINER}
+      command: composer install

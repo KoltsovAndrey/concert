@@ -1,0 +1,39 @@
+@import './params-grid.scss';
+
+.container-fluid {
+  padding-left: $padding_column * 1px;
+  padding-right: $padding_column * 1px;
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: $padding_column * -1px;
+  margin-right: $padding_column * -1px;
+  box-sizing: border-box;
+}
+
+.col {
+  position: relative;
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+  padding-left: $padding_column * 1px;
+  padding-right: $padding_column * 1px;
+  box-sizing: border-box;
+}
+
+@for $i from 1 through $count_column {
+  .col-#{$i} {
+    position: relative;
+    padding-left: $padding_column * 1px;
+    padding-right: $padding_column * 1px;
+    flex-basis: 100% * (($i) / $count_column);
+    max-width: 100% * (($i) / $count_column);
+    flex-grow: 0;
+    flex-shrink: 0;
+    -webkit-box-flex: 0;
+    box-sizing: border-box;
+  }
+}
