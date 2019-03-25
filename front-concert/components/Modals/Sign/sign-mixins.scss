@@ -1,0 +1,89 @@
+@mixin sign-title {
+  font-weight: 500;
+  font-size: 30px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  @media screen and (max-width: 575px) {
+    padding-top: 30px;
+  }
+}
+
+@mixin sign-text {
+  font-weight: 500;
+  font-size: 16px;
+  color: dimgray;
+  margin-bottom: 20px;
+}
+
+@mixin sign-selected-text {
+  cursor: pointer;
+  color: #3176cf;
+
+  &:focus {
+    background-image: linear-gradient(#3176cf, #3176cf);
+    background-position-y: bottom;
+    background-repeat: repeat-x;
+    background-size: 100% 10%;
+    outline: none;
+  }
+}
+
+@mixin sign-sub-text {
+  font-weight: 500;
+  font-size: 12px;
+  color: #050505;
+  margin-top: 0;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+@mixin sign-modal {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+  background-color: #ffffff;
+  min-height: 500px;
+  padding: 50px;
+  @media screen and (max-width: 575px) {
+    min-height: 100vh;
+    padding: 25px;
+  }
+}
+
+@mixin sign-close-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  font-size: 35px;
+  cursor: pointer;
+  z-index: 1;
+
+
+  &:focus {
+    outline: none;
+    color: #3176cf;
+    text-shadow: 0px 0px 10px rgba(49, 118, 207, 0.3);
+  }
+}
+
+@mixin sign-back-icon {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  font-size: 35px;
+  cursor: pointer;
+  z-index: 1;
+
+  &:focus {
+    outline: none;
+    color: #3176cf;
+    text-shadow: 0px 0px 10px rgba(49, 118, 207, 0.3);
+  }
+}

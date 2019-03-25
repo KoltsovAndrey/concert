@@ -1,0 +1,28 @@
+.navbar {
+  height: 50px;
+  border-bottom: 2px solid #edeef0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.navbar__title {
+  font-size: 20px;
+}
+
+.navbar__sign {
+  font-size: 16px;
+  margin-left: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.navbar__sign-icon {
+  font-size: 20px;
+  margin-left: 10px;
+}

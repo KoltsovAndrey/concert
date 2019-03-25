@@ -1,0 +1,39 @@
+@import '../sign-mixins';
+
+.sign-reset-modal {
+  @include sign-modal();
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-reset-modal__close-icon {
+  @include sign-close-icon();
+}
+
+.sign-reset-modal__back-icon {
+  @include sign-back-icon();
+}
+
+.sign-reset-modal__title-unselect {
+  color: gray;
+}
+
+.sign-reset-modal__title {
+  @include sign-title();
+}
+
+.sign-reset-modal__text {
+  @include sign-text();
+}
+
+.sign-reset-modal__sub-text {
+  @include sign-sub-text();
+
+  @media screen and (max-width: 575px) {
+    text-align: center;
+  }
+}
+
+.sign-reset-modal__selected-text {
+  @include sign-selected-text();
+}
