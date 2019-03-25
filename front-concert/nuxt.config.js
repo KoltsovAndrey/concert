@@ -2,6 +2,9 @@ import pkg from './package'
 
 export default {
   mode: 'universal',
+  env: {
+      API_HOST: 'http://localhost:3000'
+  },
   head: {
     title: pkg.name,
     meta: [

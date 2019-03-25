@@ -1,4 +1,4 @@
-// import { AnyARecord } from 'dns';
+import axios from 'axios'
 
 export interface IQuery<TForm, TResult> {
   readonly method: String,
@@ -6,19 +6,28 @@ export interface IQuery<TForm, TResult> {
   execute(form: TForm): Promise<TResult>
 }
 
-// interface IQueryResult<TResult> {
-//   readonly status: Boolean
-//   readonly data: any
-// }
+interface IQueryError {
 
-// class Query<TForm, TResult> implements IQuery<TForm, TResult> {
-//   method: String
-//   url: String
+}
 
-//   execute(form: TForm): Promise<TResult> {
-//     throw new Error('Method not implemented.');
-//   }
-// }
+interface IQueryResult<TResult> {
+  readonly status: Boolean
+  readonly data: TResult | IQueryError
+}
+
+class Query<TForm, TResult> implements IQuery<TForm, TResult> {
+  readonly method: String
+  readonly url: String
+
+  constructor(method: String, url: String) {
+    this.method = method
+    this.url = url
+  }
+
+  execute(form: TForm): Promise<TResult> {
+    // return axios({method, url, })
+  }
+}
 
 export interface IPaginateResult<TItem> {
   meta: PaginateMeta

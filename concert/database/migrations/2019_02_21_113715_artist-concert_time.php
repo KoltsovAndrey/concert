@@ -13,7 +13,7 @@ class ArtistConcertTime extends Migration
      */
     public function up()
     {
-        Schema::table('artistSongs', function (Blueprint $table) {
+        Schema::table('artist_songs', function (Blueprint $table) {
             $table->timestamps();
         });
     }
@@ -25,7 +25,7 @@ class ArtistConcertTime extends Migration
      */
     public function down()
     {
-        Schema::table('artistSongs', function (Blueprint $table) {
+        Schema::table('artist_songs', function (Blueprint $table) {
             $table->dropColumn(['created_at', 'updated_at']);
         });
     }
