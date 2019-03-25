@@ -1,60 +1,40 @@
+import { RuleResult, Rule, RuleReqired, RuleStringCustom, RuleStringMax, RuleStringMin } from '../../../Inputs/Validation/Validation'
+
 export default class SignCheckModalData {
   email: String
-  emailRules: Object
-  emailValidationResult: Array<any>
+  emailRules: Array<Rule<String>>
+  emailValidationResult: Array<RuleResult>
 
   password: String
-  passwordRules: Object
-  passwordValidationResult: Array<any>
+  passwordRules: Array<Rule<String>>
+  passwordValidationResult: Array<RuleResult>
 
   passwordConfirm: String
-  passwordConfirmRules: Object
-  passwordConfirmValidationResult: Array<any>
+  passwordConfirmRules: Array<Rule<String>>
+  passwordConfirmValidationResult: Array<RuleResult>
 
   constructor() {
     this.email = '';
-    this.emailRules = {
-      required: {
-        message: 'Заполните поле',
-      },
-      custom: {
-        handler: (value: String) => {
-          return value.includes('@');
-        },
-        message: 'Введен не корректный email'
-      }
-    },
-    this.emailValidationResult = new Array<any>()
+    this.emailRules = [
+      new RuleReqired('Заполните поле'),
+      new RuleStringCustom('Введен не корректный email', (value: String) => value.includes('@')),
+    ]
+    this.emailValidationResult = new Array<RuleResult>()
 
     this.password = '';
-    this.passwordRules = {
-      required: {
-        message: 'Заполните поле',
-      },
-      min: {
-        minLength: 6,
-        message: 'Пароль должен содержать не менее 6 символов',
-      },
-      max: {
-        maxLength: 16,
-        message: 'Пароль должен содержать не более 16 символов',
-      }
-    },
-    this.passwordValidationResult = new Array<any>()
+    this.passwordRules = [
+      new RuleReqired('Заполните поле'),
+      new RuleStringMin('Пароль должен содержать не менее 6 символов', 6),
+      new RuleStringMax('Пароль должен содержать не более 16 символов', 16),
+    ]
+    this.passwordValidationResult = new Array<RuleResult>()
 
 
     this.passwordConfirm = '';
-    this.passwordConfirmRules = {
-      required: {
-        message: 'Повторите пароль',
-      },
-      custom: {
-        handler: (value: String) => {
-          return value == this.password;
-        },
-        message: 'Пароли должны совпадать'
-      }
-    },
-    this.passwordConfirmValidationResult = new Array<any>()
+    this.passwordConfirmRules = [
+      new RuleReqired('Повторите пароль'),
+      new RuleStringCustom('Введен не корректный email', (value: String) => value == this.password),
+    ]
+    this.passwordConfirmValidationResult = new Array<RuleResult>()
   }
 }

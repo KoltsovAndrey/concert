@@ -16,7 +16,7 @@
               <input-text
                 v-model="email"
                 placeholder="Email"
-                :selectedRules="emailRules"
+                :rules="emailRules"
                 :validationResult="emailValidationResult"
                 @validate="validateEmail"
               />
@@ -26,10 +26,22 @@
                 v-model="password"
                 placeholder="Пароль"
                 type="password"
-                :selectedRules="passwordRules"
+                :rules="passwordRules"
                 :validationResult="passwordValidationResult"
                 @validate="validatePassword"
               />
+              <!-- <selector
+                ref="selector"
+                :isFocus="selectorFocus"
+                :options="selectorOptions"
+                :muliselect="false"
+                :rules="selectorRules"
+                :validationResult="selectorValidationResult"
+                v-model="selectorValue"
+                @searchFocus="searchFocus"
+                @changeFocus="changeFocus"
+                @validate="validateSelector"
+              /> -->
             </div>
           </div>
         </div>
@@ -78,6 +90,8 @@ import InputText from '../../../Inputs/InputText/InputText.vue'
 import SignUpModal from '../SignUpModal/SignUpModal.vue'
 import SignResetModal from '../SignResetModal/SignResetModal.vue'
 import Btn from '../../../Inputs/Button/Button.vue'
+import Selector from '../../../Inputs/Selector/Selector.vue'
+import { RuleResult, Rule } from '../../../Inputs/Validation/Validation'
 
 import SignInModalData from './SignInModalData'
 
@@ -85,17 +99,25 @@ import SignInModalData from './SignInModalData'
   components: {
     InputText,
     Btn,
+    Selector,
   },
   data: () => new SignInModalData()
 })
-export default class SignCheckModal extends Vue {
+export default class SignInModal extends Vue {
   email!: String
-  emailRules!: Object
-  emailValidationResult!: Array<any>
+  emailRules!: Array<Rule<String>>
+  emailValidationResult!: Array<RuleResult>
 
   password!: String
-  passwordRules!: Object
-  passwordValidationResult!: Array<any>
+  passwordRules!: Array<Rule<String>>
+  passwordValidationResult!: Array<RuleResult>
+
+  selectorRules!: Array<Rule<String>>
+  selectorValidationResult!: Array<RuleResult>
+
+  selectorFocus: Boolean = false
+  selectorOptions!: Array<any>
+  selectorValue!: any
 
   validateEmail(e) {
     this.emailValidationResult = e.result
@@ -105,7 +127,13 @@ export default class SignCheckModal extends Vue {
     this.passwordValidationResult = e.result
   }
 
+  validateSelector(e) {
+    this.selectorValidationResult = e.result
+  }
+
   moveToSignUp() {
+    // const selector = this.$refs.selector as Selector
+    // selector.validate()
     this.$emit('moveTo', {
       modal: SignUpModal,
     })
@@ -119,6 +147,15 @@ export default class SignCheckModal extends Vue {
 
   close() {
     this.$emit('close')
+  }
+
+  searchFocus(e) {
+    if(!e.focus) return
+    this.selectorFocus = e.focus
+  }
+
+  changeFocus(e) {
+    this.selectorFocus = e.focus
   }
 }
 </script>

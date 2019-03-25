@@ -12,11 +12,11 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import ValidationListData from './ValidationListData';
-
+import { RuleResult } from '../Validation/Validation'
 
 @Component
 export default class ValidationList extends Vue {
-  @Prop({ required: true, type: Array }) validationResult!: Array<any>
+  @Prop({ required: true, type: Array }) validationResult!: Array<RuleResult>
 }
 </script>
 

@@ -16,7 +16,7 @@
               <input-text
                 v-model="email"
                 placeholder="Email"
-                :selectedRules="emailRules"
+                :rules="emailRules"
                 :validationResult="emailValidationResult"
                 @validate="validateEmail"
               />
@@ -26,7 +26,7 @@
                 v-model="password"
                 placeholder="Пароль"
                 type="password"
-                :selectedRules="passwordRules"
+                :rules="passwordRules"
                 :validationResult="passwordValidationResult"
                 @validate="validatePassword"
               />
@@ -36,7 +36,7 @@
                 v-model="passwordConfirm"
                 placeholder="Пароль еще раз"
                 type="password"
-                :selectedRules="passwordConfirmRules"
+                :rules="passwordConfirmRules"
                 :validationResult="passwordConfirmValidationResult"
                 @validate="validatePasswordConfirm"
               />
@@ -74,6 +74,7 @@ import InputText from '../../../Inputs/InputText/InputText.vue'
 import SignUpModalData from './SignUpModalData'
 import SignInModal from '../SignInModal/SignInModal.vue'
 import Btn from '../../../Inputs/Button/Button.vue'
+import { RuleResult, Rule } from '../../../Inputs/Validation/Validation'
 
 @Component({
   components: {
@@ -84,16 +85,16 @@ import Btn from '../../../Inputs/Button/Button.vue'
 })
 export default class SignCheckModal extends Vue {
   email!: String
-  emailRules!: Object
-  emailValidationResult!: Array<any>
+  emailRules!: Array<Rule<String>>
+  emailValidationResult!: Array<RuleResult>
 
   password!: String
-  passwordRules!: Object
-  passwordValidationResult!: Array<any>
+  passwordRules!: Array<Rule<String>>
+  passwordValidationResult!: Array<RuleResult>
 
   passwordConfirm!: String
-  passwordConfirmRules!: Object
-  passwordConfirmValidationResult!: Array<any>
+  passwordConfirmRules!: Array<Rule<String>>
+  passwordConfirmValidationResult!: Array<RuleResult>
 
   validateEmail(e) {
     this.emailValidationResult = e.result

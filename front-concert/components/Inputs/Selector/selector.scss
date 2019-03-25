@@ -1,0 +1,127 @@
+.selector__container {
+  min-height: 55px;
+  padding-top: 20px;
+  position: relative;
+}
+
+
+.selector__placeholder {
+  left: 10px;
+  top: 28px;
+  position: absolute;
+  color: dimgray;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.selector__placeholder--notempty {
+  font-size: 14px;
+  margin-top: -25px;
+  padding-bottom: 1px;
+  margin-left: -10px;
+  cursor: pointer;
+  pointer-events: auto;
+  color: #050505;
+}
+
+
+.selector__options-list {
+  max-height: 0px;
+  top: 100%;
+  position: absolute;
+  overflow-y: auto;
+  left: 0;
+  right: 0;
+  background-color: white;
+  z-index: 1;
+}
+
+.selector__options-list--unexpanded {
+  max-height: 142px;
+  border: 2px solid black;
+  border-top-width: 0px;
+}
+
+.selector__option--selected {
+  background-color: #3176cf;
+  color: white;
+  font-weight: 500;
+  &:hover {
+    background-color: #4d85ce !important;
+  }
+}
+
+.selector__option {
+  font-size: 16px;
+  height: 35px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(240, 240, 240);
+  }
+}
+
+.selector__options-tag-list--notempty {
+  padding-top: 6px;
+  padding-right: 10px;
+}
+
+.selector__options-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selector__option-name {
+  display: flex;
+  align-items: center;
+  min-height: 31px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.selector__option-tag {
+  margin-bottom: 5px;
+  margin-left: 10px;
+  border: 2px solid black;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 20px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.selector__input-container {
+  border: 2px solid black;
+  min-height: 35px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+
+
+.selector__input-search {
+  min-height: 31px;
+  display: block;
+  width: 100%;
+  border: none;
+  -webkit-appearance: none;
+  font-size: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
+  display: flex;
+  align-items: center;
+
+  &:focus {
+    outline: none;
+  }
+}

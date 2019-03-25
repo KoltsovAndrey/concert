@@ -29,6 +29,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch, Model } from 'vue-property-decorator';
 import VilidationList from '../VilidationList/ValidationList.vue';
+import { Rule, RuleResult } from '../Validation/Validation'
 
 import InputTextData from './InputTextData';
 
@@ -42,11 +43,10 @@ export default class SignLayout extends Vue {
   @Model('input', { type: String }) readonly text!: String
   @Prop({ type: String }) readonly placeholder!: String
   @Prop({ type: String, default: 'text' }) readonly type!: String
-  @Prop({ type: Object, default: () => ({}) }) readonly selectedRules!: Object
-  @Prop({ required: true, type: Array }) readonly validationResult!: Array<any>
+  @Prop({ type: Array, default: () => ([]) }) readonly rules!: Array<Rule<String>>
+  @Prop({ required: true, type: Array }) readonly validationResult!: Array<RuleResult>
 
   isFocus!: Boolean
-  rules: any
 
   get getInput(): HTMLElement {
     return this.$refs.input as HTMLElement
@@ -75,16 +75,15 @@ export default class SignLayout extends Vue {
     })
   }
 
-  validate(): any {
-    const validationResult = new Array<any>()
-    for(let key in this.selectedRules) {
-      if(!this.rules[key](this.text, this.selectedRules[key])) {
-        validationResult.push({
-          rule: key,
-          message: this.selectedRules[key].message,
-        })
+  validate() {
+    const validationResult = new Array<RuleResult>()
+    
+    this.rules.forEach(k => {
+      if(!k.validate(this.text)) {
+        validationResult.push(new RuleResult(k.constructor.name, k.message))
       }
-    }
+    })
+
     this.$emit('validate', {
       result: validationResult
     })

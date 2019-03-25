@@ -23,7 +23,7 @@
               <input-text
                 v-model="email"
                 placeholder="Email"
-                :selectedRules="emailRules"
+                :rules="emailRules"
                 :validationResult="emailValidationResult"
                 @validate="validateEmail"
               />
@@ -47,6 +47,7 @@ import InputText from '../../../Inputs/InputText/InputText.vue'
 import SignInModal from '../SignInModal/SignInModal.vue'
 import SignResetModalData from './SignResetModalData'
 import Btn from '../../../Inputs/Button/Button.vue'
+import { RuleResult, Rule } from '../../../Inputs/Validation/Validation'
 
 @Component({
   components: {
@@ -57,8 +58,8 @@ import Btn from '../../../Inputs/Button/Button.vue'
 })
 export default class SignCheckModal extends Vue {
   email!: String
-  emailRules!: Object
-  emailValidationResult!: Array<any>
+  emailRules!: Array<Rule<String>>
+  emailValidationResult!: Array<RuleResult>
 
   validateEmail(e) {
     this.emailValidationResult = e.result

@@ -1,14 +1,12 @@
 <template>
   <div class="sign-layout">
     <div class="sign-layout__content-container" @click.self="close">
-      <div class="sign-layout__content" @click.self="close">
-        <component 
-          :is="modal"
-          :params="modalParams"
-          @moveTo="moveTo"
-          @close="close"
-        />
-      </div>
+      <component 
+        :is="modal"
+        :params="modalParams"
+        @moveTo="moveTo"
+        @close="close"
+      />
     </div>
   </div>
 </template>
