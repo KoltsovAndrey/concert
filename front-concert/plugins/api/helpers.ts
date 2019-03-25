@@ -1,31 +1,28 @@
-import axios from 'axios'
+import axios, { AxiosPromise } from 'axios'
 
 export interface IQuery<TForm, TResult> {
-  readonly method: String,
-  readonly url: String,
-  execute(form: TForm): Promise<TResult>
+  readonly method: string,
+  readonly url: string,
+  execute(form: TForm): AxiosPromise<IQueryResult<TResult>>
 }
 
-interface IQueryError {
-
-}
-
-interface IQueryResult<TResult> {
+export interface IQueryResult<TResult> {
   readonly status: Boolean
-  readonly data: TResult | IQueryError
+  readonly data: TResult
+  readonly errors?: Array<any>
 }
 
-class Query<TForm, TResult> implements IQuery<TForm, TResult> {
-  readonly method: String
-  readonly url: String
+export class Query<TForm, TResult> implements IQuery<TForm, TResult> {
+  readonly method: string
+  readonly url: string
 
-  constructor(method: String, url: String) {
+  constructor(method: string, url: string) {
     this.method = method
     this.url = url
   }
 
-  execute(form: TForm): Promise<TResult> {
-    // return axios({method, url, })
+  execute(form: TForm): AxiosPromise<IQueryResult<TResult>> {
+    return axios(this.url, { method: this.method, data: form }) as AxiosPromise<IQueryResult<TResult>>
   }
 }
 
