@@ -1,0 +1,35 @@
+@import '../sign-mixins';
+
+.sign-up-modal {
+  @include sign-modal();
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-up-modal__close-icon {
+  @include sign-close-icon();
+}
+
+.sign-up-modal__title-unselect {
+  color: gray;
+}
+
+.sign-up-modal__title {
+  @include sign-title();
+}
+
+.sign-up-modal__text {
+  @include sign-text();
+}
+
+.sign-up-modal__sub-text {
+  @include sign-sub-text();
+
+  @media screen and (max-width: 575px) {
+    text-align: center;
+  }
+}
+
+.sign-up-modal__selected-text {
+  @include sign-selected-text();
+}

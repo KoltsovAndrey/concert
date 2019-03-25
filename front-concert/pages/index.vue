@@ -1,14 +1,14 @@
 <template>
-  <test-component />
+  <home-page />
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import TestComponent from '../components/TestComponent.vue';
+import HomePage from '../components/Pages/HomePage/HomePage.vue';
 
 @Component({
   components: {
-    TestComponent,
+    HomePage,
   },
 })
 export default class Home extends Vue {
