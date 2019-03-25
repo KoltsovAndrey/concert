@@ -13,7 +13,7 @@ class ArtistSong extends Migration
      */
     public function up()
     {
-        Schema::create('artistSongs', function(Blueprint $table){
+        Schema::create('artist_songs', function(Blueprint $table){
             $table->increments('id');
             $table->integer('artist_id')->unsigned();
             $table->foreign('artist_id')->references('id')->on('artists');
@@ -29,6 +29,6 @@ class ArtistSong extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('artistSongs');
+        Schema::dropIfExists('artist_songs');
     }
 }
