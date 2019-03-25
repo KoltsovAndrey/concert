@@ -7,7 +7,9 @@
         </div>
         <div class="col-auto">
           <div class="navbar__sign" @click="showAuth">
-            Войти <i class="navbar__sign-icon fas fa-sign-in-alt"></i>
+            <i v-if="!getUser" class="navbar__sign-in-icon fas fa-sign-in-alt"></i>
+            {{ getUser ? 'Выйти' : 'Войти' }}
+            <i v-if="getUser" class="navbar__sign-out-icon fas fa-sign-out-alt"></i>
           </div>
         </div>
       </div>
@@ -17,14 +19,22 @@
 
 <script lang="ts">
 import { Vue, Component, Inject } from 'vue-property-decorator';
+import { Getter, Action } from 'vuex-class';
 import SignLayout from '../Modals/Sign/SignLayout/SignLayout.vue';
 
 @Component
 export default class Navbar extends Vue {
   @Inject('showModal') showModalProvide
 
+  @Getter('getUser') getUser;
+  @Action('setUser') setUser;
+
   showAuth() {
-    this.showModalProvide(SignLayout);
+    if(!this.getUser) {
+      this.showModalProvide(SignLayout);
+    } else {
+      this.setUser(undefined)
+    }
   }
 }
 </script>

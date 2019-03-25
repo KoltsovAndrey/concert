@@ -1,17 +1,19 @@
 <template>
-  <div style="background-image: linear-gradient(red, yellow, blue); height: 1000px;" >
 
-  </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { SignUp } from '../../../plugins/api/sign'
+import Sign from '../../../plugins/api/Sign'
 
 @Component
 export default class HomePage extends Vue {
   async mounted() {
-    const result = await SignUp({})
+    // const result = await Sign.up({
+    //   email: 'qwerty@qwerty.com',
+    //   password: '123456',
+    //   name: 'qwerty'
+    // })
     // console.log(result.data)
     
   }

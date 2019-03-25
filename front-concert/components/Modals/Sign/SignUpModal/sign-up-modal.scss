@@ -1,5 +1,9 @@
 @import '../sign-mixins';
 
+.sign-in-modal--await {
+  @include sign-modal-await();
+}
+
 .sign-up-modal {
   @include sign-modal();
   display: flex;
