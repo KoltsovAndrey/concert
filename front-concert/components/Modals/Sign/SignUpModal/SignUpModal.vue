@@ -1,6 +1,9 @@
 <template>
   <div class="container px-0">
-    <div class="sign-up-modal">
+    <div 
+      class="sign-up-modal"
+      :class="{'sign-up-modal--await': loading}"
+    >
       <div tabindex="0" class="sign-up-modal__close-icon" @click="close">
         <i class="fas fa-times"></i>
       </div>
@@ -46,7 +49,7 @@
         <div class="w-100 mt-auto">
           <div class="row">
             <div class="col-sm-6 col-12 ml-auto">
-              <btn>Зарегистрироваться</btn>
+              <btn @click.native="signUp">Зарегистрироваться</btn>
             </div>
             <div class="col-12">
               <div class="row">
@@ -75,6 +78,7 @@ import SignUpModalData from './SignUpModalData'
 import SignInModal from '../SignInModal/SignInModal.vue'
 import Btn from '../../../Inputs/Button/Button.vue'
 import { RuleResult, Rule } from '../../../Inputs/Validation/Validation'
+import Sign from '../../../../plugins/api/Sign'
 
 @Component({
   components: {
@@ -84,17 +88,19 @@ import { RuleResult, Rule } from '../../../Inputs/Validation/Validation'
   data: () => new SignUpModalData()
 })
 export default class SignCheckModal extends Vue {
-  email!: String
-  emailRules!: Array<Rule<String>>
+  email!: string
+  emailRules!: Array<Rule<string>>
   emailValidationResult!: Array<RuleResult>
 
-  password!: String
-  passwordRules!: Array<Rule<String>>
+  password!: string
+  passwordRules!: Array<Rule<string>>
   passwordValidationResult!: Array<RuleResult>
 
-  passwordConfirm!: String
-  passwordConfirmRules!: Array<Rule<String>>
+  passwordConfirm!: string
+  passwordConfirmRules!: Array<Rule<string>>
   passwordConfirmValidationResult!: Array<RuleResult>
+
+  loading: Boolean = false
 
   validateEmail(e) {
     this.emailValidationResult = e.result
@@ -116,6 +122,19 @@ export default class SignCheckModal extends Vue {
 
   close() {
     this.$emit('close')
+  }
+
+  async signUp() {
+    this.loading = true
+
+    await Sign.up({
+      email: this.email,
+      password: this.password,
+      name: this.email,
+    })
+
+    this.loading = false
+    this.moveToSignIn()
   }
 }
 </script>

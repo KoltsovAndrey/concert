@@ -22,7 +22,12 @@
   align-items: center;
 }
 
-.navbar__sign-icon {
+.navbar__sign-in-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.navbar__sign-out-icon {
   font-size: 20px;
   margin-left: 10px;
 }

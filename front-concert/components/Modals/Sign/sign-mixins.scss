@@ -37,6 +37,11 @@
   margin-bottom: 0;
 }
 
+@mixin sign-modal-await {
+  pointer-events: none;
+  filter: grayscale(100%);
+}
+
 @mixin sign-modal {
   position: relative;
   margin-left: auto;

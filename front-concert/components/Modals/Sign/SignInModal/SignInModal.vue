@@ -1,6 +1,9 @@
 <template>
   <div class="container px-0">
-    <div class="sign-in-modal">
+    <div
+      class="sign-in-modal"
+      :class="{ 'sign-in-modal--await': loading }"
+    >
       <div tabindex="0" class="sign-in-modal__close-icon" @keydown.enter="close" @click="close">
         <i class="fas fa-times"></i>
       </div>
@@ -62,7 +65,7 @@
               </div>
             </div>
             <div class="col-sm-4 col-12 ml-auto">
-              <btn>Войти</btn>
+              <btn @click.native="signIn">Войти</btn>
             </div>
             <div class="col-12">
               <div class="row">
@@ -92,6 +95,8 @@ import SignResetModal from '../SignResetModal/SignResetModal.vue'
 import Btn from '../../../Inputs/Button/Button.vue'
 import Selector from '../../../Inputs/Selector/Selector.vue'
 import { RuleResult, Rule } from '../../../Inputs/Validation/Validation'
+import Sign from '../../../../plugins/api/Sign'
+import { Action } from 'vuex-class';
 
 import SignInModalData from './SignInModalData'
 
@@ -104,20 +109,24 @@ import SignInModalData from './SignInModalData'
   data: () => new SignInModalData()
 })
 export default class SignInModal extends Vue {
-  email!: String
-  emailRules!: Array<Rule<String>>
+  @Action('setUser') setUser
+
+  email!: string
+  emailRules!: Array<Rule<string>>
   emailValidationResult!: Array<RuleResult>
 
-  password!: String
-  passwordRules!: Array<Rule<String>>
+  password!: string
+  passwordRules!: Array<Rule<string>>
   passwordValidationResult!: Array<RuleResult>
 
-  selectorRules!: Array<Rule<String>>
+  selectorRules!: Array<Rule<string>>
   selectorValidationResult!: Array<RuleResult>
 
   selectorFocus: Boolean = false
   selectorOptions!: Array<any>
   selectorValue!: any
+
+  loading: Boolean = false
 
   validateEmail(e) {
     this.emailValidationResult = e.result
@@ -156,6 +165,18 @@ export default class SignInModal extends Vue {
 
   changeFocus(e) {
     this.selectorFocus = e.focus
+  }
+
+  async signIn() {
+    this.loading = true
+    const response = await Sign.in({
+      email: this.email,
+      password: this.password
+    })
+
+    this.setUser(response.data)
+    this.loading = false
+    this.close()
   }
 }
 </script>
